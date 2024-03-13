@@ -37,7 +37,7 @@ class TodoList extends React.Component {
     const { value } = target[0];
 
     const newArr = this.state.todoList;
-    newArr.push({ id: this.state.todoList.length + 1, text: value });
+    newArr.push({ id: newArr.at(-1).id + 1, text: value });
 
     this.setState({
       todoList: newArr,
