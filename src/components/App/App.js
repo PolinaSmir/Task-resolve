@@ -14,3 +14,7 @@ export default App;
 
 
 */
+
+// name.module.css
+//         ^
+//     must have

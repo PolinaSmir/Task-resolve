@@ -1,6 +1,7 @@
 import React from "react";
 import TodoItem from "./TodoItem";
-import TodoForm from "./TodoForm";
+import TodoForm from "./TodoForm/TodoForm";
+import styles from "./TodoListStyle.module.css";
 
 class TodoList extends React.Component {
   constructor(props) {
@@ -25,33 +26,35 @@ class TodoList extends React.Component {
     });
   }
 
-  renderLi() {
+  formHandler = (text) => {
     const { todoList } = this.state;
 
-    return todoList.map((task) => <TodoItem key={task.id} text={task.text} delCallback={() => this.removeTask(task.id)} />);
-  }
+    const newObj = {
+      id: todoList.length + 1,
+      text,
+    };
 
-  submitHandler = (event) => {
-    event.preventDefault();
-    const { target } = event;
-    const { value } = target[0];
-
-    const newArr = this.state.todoList;
-    newArr.push({ id: newArr.at(-1).id + 1, text: value });
+    const newArr = [...todoList, newObj];
 
     this.setState({
       todoList: newArr,
     });
   };
 
+  renderLi() {
+    const { todoList } = this.state;
+
+    return todoList.map((task) => <TodoItem key={task.id} text={task.text} delCallback={() => this.removeTask(task.id)} />);
+  }
+
   render() {
     return (
       <>
         <h1>TODO LIST</h1>
 
-        <TodoForm submitFn={() => this.submitHandler} />
+        <TodoForm submitHandler={this.formHandler} sendData={this.formHandler} />
 
-        <ul>{this.renderLi()}</ul>
+        <ul className={styles.container}>{this.renderLi()}</ul>
       </>
     );
   }

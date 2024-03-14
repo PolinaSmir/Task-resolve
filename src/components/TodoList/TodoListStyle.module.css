@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  border: 3px dotted darkblue;
+  background-color: orange;
+}
+
+.container li {
+  margin: 10px;
+}
