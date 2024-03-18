@@ -1,6 +1,5 @@
 import React from "react";
-import UserList from "./UserList/UserList";
-import TodoList from "./TodoList/TodoList";
+import List from "./List/List";
 
 // class App extends React.Component { /// was on video (065) React.Formy
 //   render() {
@@ -9,7 +8,7 @@ import TodoList from "./TodoList/TodoList";
 // }
 
 function App() {
-  return <UserList />;
+  return <List />;
 }
 
 export default App;
