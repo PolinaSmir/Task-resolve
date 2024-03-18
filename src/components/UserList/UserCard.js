@@ -27,7 +27,18 @@ class UserCard extends React.Component {
 }
 
 UserCard.propTypes = {
-  user: PropTypes.object,
+  user: PropTypes.shape({
+    name: PropTypes.shape({
+      first: PropTypes.string.isRequired,
+      last: PropTypes.string.isRequired,
+    }).isRequired,
+
+    email: PropTypes.string.isRequired,
+
+    picture: PropTypes.shape({
+      large: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 export default UserCard;
