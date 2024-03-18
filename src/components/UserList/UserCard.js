@@ -1,20 +1,34 @@
 // В компоненті UserCard потрібно реалізувати логіку відмальування одного єдиного користувача
 // Оцей один єдиний користувач спускається в компоненту UserCard через пропси від батьківської компоненти UserList
 
+import React from "react";
+import "./style.css";
+import PropTypes from "prop-types";
 
-import './style.css';
-
-function UserCard(props) {
-    const {user: { name: { first: firstName, last: lastName }, email, picture: { large: imgSrc } }} = props;
-
+class UserCard extends React.Component {
+  render() {
+    const {
+      user: {
+        name: { first: firstName, last: lastName },
+        email,
+        picture: { large: imgSrc },
+      },
+    } = this.props;
     return (
-        <article className='card-wrapper'>
-            <img src={imgSrc} alt={`${firstName} ${lastName}`} className='user-img' />
-            <h1>{firstName} {lastName}</h1>
-            <p>{email}</p>
-        </article>
-    )
+      <article className="card-wrapper">
+        <img src={imgSrc} alt={`${firstName} ${lastName}`} className="user-img" />
+        <h1>
+          {firstName} {lastName}
+        </h1>
+        <p>{email}</p>
+      </article>
+    );
+  }
 }
+
+UserCard.propTypes = {
+  user: PropTypes.object,
+};
 
 export default UserCard;
 

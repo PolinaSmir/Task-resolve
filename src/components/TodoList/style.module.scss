@@ -1,0 +1,69 @@
+// $main-color: blue;
+// $sm-size: 500px;
+
+// @mixin flex($fd, $jc, $ai) {
+//   display: flex;
+//   flex-direction: $fd;
+//   justify-content: $jc;
+//   align-items: $ai;
+// }
+
+// %flex-column {
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: space-between;
+
+//   &:hover {
+//     background-color: blue;
+//   }
+// }
+
+// .container {
+//   @extend %flex-column;
+//   color: red;
+//   font-size: 16px;
+
+//   img {
+//     width: 200px;
+//     height: 200px;
+//     border-radius: 50%;
+//   }
+
+//   &:hover {
+//     background-color: blue;
+//   }
+
+//   @media screen and (max-width: $sm-size) {
+//     & {
+//       color: green;
+//     }
+//   }
+// }
+
+// .text {
+//   color: $main-color;
+// }
+
+// .wrapper {
+//   @extend %flex-column;
+// }
+
+// .form {
+//   @include flex(column, flex-start, stretch);
+// }
+
+// .button {
+//   @include flex(row, center, center);
+// }
+
+.container {
+  display: flex;
+  flex-direction: column;
+  border: 3px dotted darkblue;
+  background-color: coral;
+
+  li {
+    margin-top: 10px;
+  }
+}
