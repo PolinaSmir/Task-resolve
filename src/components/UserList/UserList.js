@@ -10,19 +10,32 @@ class UserList extends React.Component {
       users: [],
       filteredUsers: [],
       userCount: 100,
+      isLoading: true,
+      isError: false,
     };
   }
 
   componentDidMount() {
     const { userCount } = this.state;
 
-    getUsers().then((data) => {
-      const { results } = data;
+    getUsers()
+      .then((data) => {
+        const { results } = data;
 
-      this.setState({
-        users: results,
+        this.setState({
+          users: results,
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          isError: error,
+        });
+      })
+      .finally(() => {
+        this.setState({
+          isLoading: false,
+        });
       });
-    });
   }
 
   clickHandler = () => {
@@ -82,27 +95,40 @@ class UserList extends React.Component {
   handleLoadUsersClick = () => {
     const { userCount } = this.state;
 
-    getUsers(userCount).then((data) => {
-      const { results } = data;
+    getUsers(userCount)
+      .then((data) => {
+        const { results } = data;
 
-      const tempArray = this.state.users;
-      results.forEach((user) => {
-        tempArray.push(user);
-      });
+        const tempArray = this.state.users;
+        results.forEach((user) => {
+          tempArray.push(user);
+        });
 
-      this.setState({
-        users: tempArray,
+        this.setState({
+          users: tempArray,
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          isError: error,
+        });
+      })
+      .finally(() => {
+        this.setState({
+          isLoading: false,
+        });
       });
-    });
   };
 
   renderUsers = () => {
     const { users, filteredUsers } = this.state;
-    return filteredUsers.length > 0 ? filteredUsers.map((user) => <UserCard user={user} key={user.login.uuid} />) : users.map((user) => <UserCard user={user} key={user.login.uuid} />);
+    return filteredUsers.length > 0
+      ? filteredUsers.map((user) => <UserCard user={user} key={user.login.uuid} />)
+      : users.map((user) => <UserCard user={user} key={user.login.uuid} />);
   };
 
   render() {
-    const { users } = this.state;
+    const { users, isLoading, isError } = this.state;
 
     return (
       <>
@@ -114,7 +140,11 @@ class UserList extends React.Component {
         <input type="text" placeholder="Search by lastname" onChange={this.handleSearch} />
 
         <button onClick={() => this.clickHandler()}>Add user</button>
-        <section className="card-container">{users.length ? this.renderUsers() : <h2>Loading...</h2>}</section>
+
+        {isLoading && <h2>Users loading...</h2>}
+        {isError && <div>{isError.message}</div>}
+
+        <section className="card-container">{users.length ? this.renderUsers() : null}</section>
       </>
     );
   }
